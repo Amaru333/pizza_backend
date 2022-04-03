@@ -23,6 +23,24 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  address: {
+    addressLine1: {
+      type: String,
+      required: false,
+    },
+    addressLine2: {
+      type: String,
+      required: false,
+    },
+    latitude: {
+      type: String,
+      required: false,
+    },
+    longitude: {
+      type: String,
+      required: false,
+    },
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);
