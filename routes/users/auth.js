@@ -28,9 +28,29 @@ router.post("/register", async (req, res) => {
   //Saving the user in database
   try {
     const saveUser = await user.save();
-    res.send(saveUser);
+
+    //Assigning JWT token
+    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_KEY);
+
+    const resData = {
+      token: token,
+      _id: saveUser._id,
+      phoneNumber: saveUser?.phoneNumber || null,
+      date: saveUser?.date || null,
+      address: {
+        addressLine1: saveUser?.address?.addressLine1 || null,
+        addressLine2: saveUser?.address?.addressLine2 || null,
+        latitude: saveUser?.address?.latitude || null,
+        longitude: saveUser?.address?.longitude || null,
+      },
+      email: saveUser?.email || null,
+      name: saveUser?.name || null,
+    };
+
+    res.send(resData);
   } catch (err) {
-    res.status(400).send(err);
+    console.log(err);
+    res.status(400).send({ message: err, errorCode: 400 });
   }
 });
 
@@ -53,7 +73,16 @@ router.post("/login", async (req, res) => {
   let resData = {
     token: token,
     _id: user._id,
-    address: user.address,
+    phoneNumber: user?.phoneNumber || null,
+    date: user?.date || null,
+    address: {
+      addressLine1: user?.address?.addressLine1 || null,
+      addressLine2: user?.address?.addressLine2 || null,
+      latitude: user?.address?.latitude || null,
+      longitude: user?.address?.longitude || null,
+    },
+    email: user?.email || null,
+    name: user?.name || null,
   };
 
   res.header("auth-token", token).send(resData);
@@ -87,6 +116,13 @@ router.patch("/update-details", verify, async (req, res) => {
   //Updating the user details
   const updatedUserDetails = await User.updateOne({ _id: req.body._id }, updateFields);
   res.send(updatedUserDetails);
+});
+
+//GET USER DETAILS
+router.post("/get-user-details", verify, async (req, res) => {
+  console.log(req);
+  const user = await User.findById(req.body._id);
+  res.send({ address: user.address, email: user.email, name: user.name, phoneNumber: user.phoneNumber });
 });
 
 module.exports = router;

@@ -1,7 +1,7 @@
 // export const INVALID_PH_NO = "Enter a valid phone number";
 module.exports = Object.freeze({
   INVALID_PH_NO: "Enter a valid phone number",
-  INVALID_NAME: "Enter a valid phone name",
+  INVALID_NAME: "Enter a valid name",
   INVALID_MAIL: "Enter a valid mail ID",
   INVALID_ADDRESS: "Both the address fields are required",
   INVALID_PASSWORD: "Invalid password",
