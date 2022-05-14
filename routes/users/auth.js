@@ -113,14 +113,16 @@ router.patch("/update-details", verify, async (req, res) => {
     },
   };
 
+  console.log(updateFields);
+
   //Updating the user details
   const updatedUserDetails = await User.updateOne({ _id: req.body._id }, updateFields);
-  res.send(updatedUserDetails);
+  const updatedUser = await User.findById(req.body._id);
+  res.send(updatedUser);
 });
 
 //GET USER DETAILS
 router.post("/get-user-details", verify, async (req, res) => {
-  console.log(req);
   const user = await User.findById(req.body._id);
   res.send({ address: user.address, email: user.email, name: user.name, phoneNumber: user.phoneNumber });
 });
