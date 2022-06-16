@@ -16,4 +16,8 @@ app.use(cors());
 const userAuthRoute = require("./routes/users/auth");
 app.use("/api/user", userAuthRoute);
 
+//Products Route
+const productRoute = require("./routes/products/products");
+app.use("/api/product", productRoute);
+
 app.listen(3000, () => console.log("Server is running"));
