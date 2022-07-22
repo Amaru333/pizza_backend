@@ -113,8 +113,6 @@ router.patch("/update-details", verify, async (req, res) => {
     },
   };
 
-  console.log(updateFields);
-
   //Updating the user details
   const updatedUserDetails = await User.updateOne({ _id: req.body._id }, updateFields);
   const updatedUser = await User.findById(req.body._id);
