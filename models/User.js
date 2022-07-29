@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  cart: {
+    type: Array,
+    required: false,
+  },
   address: {
     addressLine1: {
       type: String,

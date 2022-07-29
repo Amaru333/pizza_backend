@@ -83,6 +83,7 @@ router.post("/login", async (req, res) => {
     },
     email: user?.email || null,
     name: user?.name || null,
+    cart: user?.cart,
   };
 
   res.header("auth-token", token).send(resData);

@@ -20,4 +20,8 @@ app.use("/api/user", userAuthRoute);
 const productRoute = require("./routes/products/products");
 app.use("/api/product", productRoute);
 
+//Cart Route
+const cartRoute = require("./routes/cart/cart");
+app.use("/api/cart", cartRoute);
+
 app.listen(3000, () => console.log("Server is running"));
